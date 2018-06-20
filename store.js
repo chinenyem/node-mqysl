@@ -11,7 +11,7 @@ module.exports = {
       salt,
       encrypted_password: hash,
       username
-    })
+    }).debug()
   },
   
   authenticate ({ username, password }) {
@@ -24,7 +24,7 @@ module.exports = {
           salt: user.salt
         })
         return { success: hash === user.encrypted_password }
-      })
+      }).debug()
   }
   
 }
