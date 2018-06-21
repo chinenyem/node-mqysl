@@ -3,7 +3,6 @@ const knex = require('knex')(require('./knexfile'))
 
 
 module.exports = {
-  
   createUser ({ username, password }) {
     console.log(`Add user ${username}`)
     const { salt, hash } = saltHashPassword({ password })
