@@ -2,19 +2,23 @@
   <div class="login">
     <div class="login-page">
       <div class="form">
-        <form class="register-form">
+       
+        <form class="register-form" v-if="!show">
           <input type="text" placeholder="name"/>
           <input type="password" placeholder="password"/>
           <input type="text" placeholder="email address"/>
           <button>create</button>
-          <p class="message">Already registered? <a href="#">Sign In</a></p>
+          <p class="message">Already registered? <a href="#" @click="show = !show">Sign In</a></p>
         </form>
-        <form class="login-form">
+         
+        
+        <form class="login-form" v-if="show">
           <input type="text" placeholder="username"/>
           <input type="password" placeholder="password"/>
           <button>login</button>
-          <p class="message">Not registered? <a href="#">Create an account</a></p>
+          <p class="message">Not registered? <a href="#" @click="show = !show">Create an account</a></p>
         </form>
+        
       </div>
     </div>
   </div>
@@ -123,20 +127,37 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 
+  .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 
 
 </style>
 
 <script>
-  (function(){
-    $('.message a').click(function(){
-       $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-    });
-  })()
-
+//   (function(){
+//     $('.message a').click(function(){
+//        $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+//     });
+//   })()
+  
+ 
 </script>
 
 <script lang="ts">
 import { Vue } from 'vue-property-decorator';
-export default class Login extends Vue {}
+export default class Login extends Vue {
+   new Vue({
+    el: ".message > a",
+    data:{
+      show:true
+    }
+  })
+
+  
+  
+}
 </script>
