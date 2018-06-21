@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 
 const store = require('./store');
 
 const app = express();
-app.use(express.static('public'))
+app.use(compression());
+app.use(express.static('churchcourse/dist'))
 app.use(bodyParser.json());
 app.post('/createUser', (req,res)=>{
   store.createUser({
