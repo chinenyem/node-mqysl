@@ -1,19 +1,22 @@
 <!--  eslint-disable-next-line -->
 
 <template>
-  <div class="login login-page">
+  <div class="login login-page" id="login">
     <div class="form">
         <form class="register-form" v-if="!show">
-          <input type="text" placeholder="name" v-model="name"/>
-          <input type="password" placeholder="password" v-model="password"/>
-          <input type="text" placeholder="email address" v-model="email"/>
+          <input type="text" placeholder="name" v-model="name" required/>
+          <input type="password" placeholder="password" v-model="password" required/>
+          <input type="email" placeholder="email address" v-model="email" required/>
           <button @click="createAcct(name, password, email)">create</button>
+          <p v-if="emptyfields" class="error Message">
+            Please complete All fields.
+          </p>
           <p class="message" @click="show =!show">Already registered? <a href="#" class="divp" >Sign In</a></p>
         </form>
         <form class="login-form" v-if="show">
           <input type="text" placeholder="username" v-model="username"/>
           <input type="password" placeholder="password" v-model="logingpassword"/>
-          <button @click="loginIn(username, loginpassword)">login</button>
+          <button @click="loginIn(username, logingpassword)">login</button>
           <p class="message" @click="show = !show">Not registered? <a href="#" class="divp" >Create an account</a></p>
         </form>
     </div>
@@ -87,6 +90,40 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
+  
+  .container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
 
   .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
@@ -99,33 +136,64 @@ body {
 </style>
 
 <script lang="ts">
+  //import axios from 'axios';
+  import Vue from 'vue';
+  var VueApp: any = Vue;
+  var axios: any = axios;
+
     export default {
         name: 'login',
-        data () {
-            return {
-                show:true,
+        data: function() {
+             return{  show:true,
+                emptyfields:false,
                 name: '',
                 password: '',
                 email: '',
                 username: '',
-                logingpassword: ''
-            }
-        },
+                logingpassword: ''}
+            },
       methods:{
-        message(){
-          console.log("hello")
-        },
          //createaccout
-        createAcct(name:string, password:string, email:string){
-          console.log(name + " " + password + " " + email)
+        createAcct(name:string, password:string, email:string) {
+          console.log(name + " " + password + " " + email);
+          let data = {
+              name: name,
+              password: password,
+              email:email
+            }
+          if (data.name == "" || data.password == "" || data.email == "")
+          {
+              this.emptyfields = true;
+              setTimeout(function(){
+               this.emptyfields = false;
+              }, 3000)
+          }
+          else{
+            let url = '/createUser';
+             axios.post(url, data).then((response:any) => {
+                console.log(response)
+            });
+         }
+          //post('/createUser', {username, password})  
         },
       
        //login
-        login(name:string, password:string){
-          console.log(name + " " + password )
-        },
+        loginIn(name:string, logingpassword:string) {
+          console.log(name + " " + logingpassword );
+          if(name == "" || logingpassword == ""){
+            console.log("problem")
+          }else{
+            let url = '/login';
+            axios.post(url, {name:name, password:logingpassword}).then((response:any) => {
+                console.log(response)
+            });
+          }
+            
+        }
         
       }
+  
+  
     }
 </script>
 

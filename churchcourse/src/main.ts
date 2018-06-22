@@ -4,6 +4,9 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 import BootstrapVue from 'bootstrap-vue';
+import Notifications from 'vue-notification'
+
+Vue.use(Notifications)
 
 Vue.use(BootstrapVue);
 import 'bootstrap/dist/css/bootstrap.css'
