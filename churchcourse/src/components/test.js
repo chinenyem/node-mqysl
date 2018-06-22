@@ -1,28 +1,45 @@
-<!--  eslint-disable-next-line -->
-
 <template>
-  <div class="login login-page">
-    <div class="form">
+  <div class="login">
+
+    <div class="login-page">
+      <div class="form">
+       <button @click="message">click me</button>
         <form class="register-form" v-if="!show">
-          <input type="text" placeholder="name" v-model="name"/>
-          <input type="password" placeholder="password" v-model="password"/>
-          <input type="text" placeholder="email address" v-model="email"/>
-          <button @click="createAcct(name, password, email)">create</button>
+          <input type="text" placeholder="name"/>
+          <input type="password" placeholder="password"/>
+          <input type="text" placeholder="email address"/>
+          <button>create</button>
           <p class="message" @click="show =!show">Already registered? <a href="#" class="divp" >Sign In</a></p>
         </form>
+         
         <form class="login-form" v-if="show">
-          <input type="text" placeholder="username" v-model="username"/>
-          <input type="password" placeholder="password" v-model="logingpassword"/>
-          <button @click="loginIn(username, loginpassword)">login</button>
+          <input type="text" placeholder="username"/>
+          <input type="password" placeholder="password"/>
+          <button>login</button>
           <p class="message" @click="show = !show">Not registered? <a href="#" class="divp" >Create an account</a></p>
         </form>
+        
+      </div>
     </div>
   </div>
 </template>
 
-
+<script>
+    export default {
+        name: 'Login',
+        data () {
+            return {
+                show:true,
+                nameit: 'Vue.js'
+            }
+        }
+    }
+</script>
 
 <style scoped lang="scss">
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -75,8 +92,42 @@
   color: #4CAF50;
   text-decoration: none;
 }
-
-
+/* .form .register-form {
+  display: none;
+} */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
 body {
   background: #76b852; /* fallback for old browsers */
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
@@ -99,37 +150,6 @@ body {
 </style>
 
 <script lang="ts">
-    export default {
-        name: 'login',
-        data () {
-            return {
-                show:true,
-                name: '',
-                password: '',
-                email: '',
-                username: '',
-                logingpassword: ''
-            }
-        },
-      methods:{
-        message(){
-          console.log("hello")
-        },
-         //createaccout
-        createAcct(name:string, password:string, email:string){
-          console.log(name + " " + password + " " + email)
-        },
-      
-       //login
-        login(name:string, password:string){
-          console.log(name + " " + password )
-        },
-        
-      }
-    }
-</script>
-
-<!-- <script lang="ts">
 //   (function(){
 //     $('.message a').click(function(){
 //        $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
@@ -139,9 +159,9 @@ body {
 //   console.log("hello")
 
 
-</script> -->
+</script>
 
-<!-- <script lang="ts">
+<script lang="ts">
  
 import { Vue } from 'vue-property-decorator';
 //    let app = new Vue({
@@ -172,4 +192,4 @@ import { Vue } from 'vue-property-decorator';
     console.log("hello")
   }
  }
-</script> -->
+</script>
