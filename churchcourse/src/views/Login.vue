@@ -135,56 +135,57 @@ body {
 
 </style>
 
-<script lang="ts">
-  //import axios from 'axios';
-  import Vue from 'vue';
-  var VueApp: any = Vue;
-  var axios: any = axios;
+<script>
+  import axios from 'axios';
 
     export default {
-        name: 'login',
-        data: function() {
-             return{  show:true,
-                emptyfields:false,
-                name: '',
-                password: '',
-                email: '',
-                username: '',
-                logingpassword: ''}
-            },
+      name: "login",
+      data()  {
+        return {
+              show: true,
+              emptyfields: false,
+              name: '',
+              password: '',
+              email: '', 
+              username: '',
+              logingpassword: '',
+             };
+      },
       methods:{
-         //createaccout
-        createAcct(name:string, password:string, email:string) {
+          createAcct(nameg, password, email){
           console.log(name + " " + password + " " + email);
-          let data = {
+         
+          let dataNew = {
               name: name,
               password: password,
               email:email
-            }
-          if (data.name == "" || data.password == "" || data.email == "")
+            },
+            value = true;
+          if (dataNew.name == "" || dataNew.password == "" || dataNew.email == "")
           {
-              this.emptyfields = true;
+              
+              value = true;
               setTimeout(function(){
-               this.emptyfields = false;
+              value = false;
               }, 3000)
+             this.emptyfields = value 
+            
           }
           else{
             let url = '/createUser';
-             axios.post(url, data).then((response:any) => {
+             axios.post(url, dataNew).then((response) => {
                 console.log(response)
             });
          }
-          //post('/createUser', {username, password})  
+        
         },
-      
-       //login
-        loginIn(name:string, logingpassword:string) {
+         loginIn(name, logingpassword) {
           console.log(name + " " + logingpassword );
           if(name == "" || logingpassword == ""){
             console.log("problem")
           }else{
             let url = '/login';
-            axios.post(url, {name:name, password:logingpassword}).then((response:any) => {
+            axios.post(url, {name:name, password:logingpassword}).then((response) => {
                 console.log(response)
             });
           }
@@ -192,52 +193,17 @@ body {
         }
         
       }
-  
-  
-    }
-</script>
-
-<!-- <script lang="ts">
-//   (function(){
-//     $('.message a').click(function(){
-//        $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-//     });
-//   })()
-
-//   console.log("hello")
-
-
-</script> -->
-
-<!-- <script lang="ts">
- 
-import { Vue } from 'vue-property-decorator';
-//    let app = new Vue({
-//     el: ".login",
-//     data:{
-//       show:true,
-//        name: 'Vue.js'
-//     },
-//       methods: {
-//       message: function (event:any) {
-//         // `this` inside methods points to the Vue instance
-//         console.log("hello")
-//         alert('Hello ' + this.name + '!')
-//         // `event` is the native DOM event
-//         if (event) {
-//           alert(event.target.tagName)
+      
+//       ,
+    
+//       computed:{
+//         createAcct():boolean{
+//           return this.createAcct();
 //         }
 //       }
-//    }
-//   })
-  
-
- export default class Login  {
-  show: boolean = true;
-  name: string = 'Login';
-  
-  message(){
-    console.log("hello")
-  }
- }
-</script> -->
+    
+    }
+    
+    
+    
+</script>
