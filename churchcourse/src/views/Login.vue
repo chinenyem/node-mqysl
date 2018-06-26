@@ -4,10 +4,10 @@
   <div class="login login-page" id="login">
     <div class="form">
         <form class="register-form" v-if="!show">
-          <input type="text" placeholder="name" v-model="name" required/>
+          <input type="text" placeholder="name" v-model="username" required/>
           <input type="password" placeholder="password" v-model="password" required/>
           <input type="email" placeholder="email address" v-model="email" required/>
-          <button @click="createAcct(name, password, email)">create</button>
+          <button @click="createAcct(username, password, email)">create</button>
           <p v-if="emptyfields" class="error Message">
             Please complete All fields.
           </p>
@@ -144,7 +144,7 @@ body {
         return {
               show: true,
               emptyfields: false,
-              name: '',
+              username: '',
               password: '',
               email: '', 
               username: '',
@@ -152,16 +152,16 @@ body {
              };
       },
       methods:{
-          createAcct(nameg, password, email){
-          console.log(name + " " + password + " " + email);
+          createAcct(username, password, email){
+          console.log(username + " " + password + " " + email);
          
           let dataNew = {
-              name: name,
+              username: username,
               password: password,
               email:email
             },
             value = true;
-          if (dataNew.name == "" || dataNew.password == "" || dataNew.email == "")
+          if (dataNew.username == "" || dataNew.password == "" || dataNew.email == "")
           {
               
               value = true;
@@ -173,19 +173,20 @@ body {
           }
           else{
             let url = '/createUser';
+            console.log(dataNew)
              axios.post(url, dataNew).then((response) => {
                 console.log(response)
             });
          }
         
         },
-         loginIn(name, logingpassword) {
-          console.log(name + " " + logingpassword );
-          if(name == "" || logingpassword == ""){
+         loginIn(username, logingpassword) {
+          console.log(username + " " + logingpassword );
+          if(username == "" || logingpassword == ""){
             console.log("problem")
           }else{
             let url = '/login';
-            axios.post(url, {name:name, password:logingpassword}).then((response) => {
+            axios.post(url, {username:username, password:logingpassword}).then((response) => {
                 console.log(response)
             });
           }

@@ -3,14 +3,15 @@ const knex = require('knex')(require('./knexfile'))
 
 
 module.exports = {
-  createUser ({ username, password, email }) {
-    console.log(`Add user ${username} and ${email}`)
+  createUser ({ email, password, username }) {
+    console.log(`Add user ${username} and password ${password} and email ${email}`)
     const { salt, hash } = saltHashPassword({ password })
-    return knex('user').returning('id').insert({
+    return knex('user').returning(['id', 'username', 'role', 'email']).insert({
       salt,
       encrypted_password: hash,
       username,
-      email
+      email,
+      updated_at: knex.fn.now(),
     }).debug()
   },
   
@@ -21,10 +22,16 @@ module.exports = {
         if (!user) return { success: false }
         const { hash } = saltHashPassword({
           password,
-          salt: user.salt
+          salt: user.salt 
         })
-        return { success: hash === user.encrypted_password }
-      }).debug()
+        return { 
+          success: hash === user.encrypted_password,
+          email: user.email,
+          username: user.username,
+          id:user.id,
+          role:user.role
+        }
+      })
   }
   
 }
