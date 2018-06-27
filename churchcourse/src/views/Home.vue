@@ -6,7 +6,7 @@
       <router-link to="/home">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <img src="../assets/logo.png">
+    <img src="../assets/logo.png"> 
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>

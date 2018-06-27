@@ -29,7 +29,7 @@ module.exports = {
           email: user.email,
           username: user.username,
           id:user.id,
-          role:user.role
+          role:user.relatedRoleID
         }
       })
   }

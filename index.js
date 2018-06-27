@@ -40,7 +40,7 @@ app.post('/login', (req,res) =>{
            expiresIn: 86400 // expires in 24 hours
         });
       
-        res.status(200).send({ message: "logged In", data, token:token })
+        res.status(200).send({ message: "logged In",   data, token:token })
     
     }
     else res.sendStatus(401)

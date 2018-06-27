@@ -4,6 +4,7 @@
   <div class="login login-page" id="login">
     <div class="form">
         <form class="register-form" v-if="!show">
+          
           <input type="text" placeholder="name" v-model="username" required/>
           <input type="password" placeholder="password" v-model="password" required/>
           <input type="email" placeholder="email address" v-model="email" required/>
@@ -14,11 +15,21 @@
           <p class="message" @click="show =!show">Already registered? <a href="#" class="divp" >Sign In</a></p>
         </form>
         <form class="login-form" v-if="show">
+          <div>
+           Username: {{username}}
+           Email:{{email}}
+           id: {{id}}
+           role: {{role}} 
+          </div>
+          <div :updated="updated">
+            
+          </div>
           <input type="text" placeholder="username" v-model="username"/>
           <input type="password" placeholder="password" v-model="logingpassword"/>
           <button @click="loginIn(username, logingpassword)">login</button>
           <p class="message" @click="show = !show">Not registered? <a href="#" class="divp" >Create an account</a></p>
         </form>
+      
     </div>
   </div>
 </template>
@@ -137,18 +148,23 @@ body {
 
 <script>
   import axios from 'axios';
+  import Vue from 'vue';
+  import { mapState } from 'vuex';
+    
 
-    export default {
+
+    export default Vue.extend({
       name: "login",
       data()  {
         return {
               show: true,
               emptyfields: false,
-              username: '',
               password: '',
               email: '', 
               username: '',
               logingpassword: '',
+              id: '',
+              role: '' 
              };
       },
       methods:{
@@ -187,23 +203,59 @@ body {
           }else{
             let url = '/login';
             axios.post(url, {username:username, password:logingpassword}).then((response) => {
-                console.log(response)
+                let dataNew = {
+                  username: response.data.data.username,
+                  email: response.data.data.email,
+                  role: response.data.data.role,
+                  id:response.data.data.id,
+                  token:response.data.token
+                }
+                console.log(this.$store.state)
+                this.$store.dispatch('auth', dataNew);
+                //this.$router.push({ name: 'dashboard', params: { userId: 123 }})
+                this.$router.push({ name: 'dashboardTeacher'})
+              //teacher dashboard shared by teacher and teacher assistant
+              //admin dashboard
+              //student dashboard
+
+
+               
             });
           }
             
         }
         
-      }
-      
-//       ,
-    
-//       computed:{
-//         createAcct():boolean{
-//           return this.createAcct();
-//         }
-//       }
-    
+      },
+      watch: {
+        userState() {
+          console.log(this.$store.state)
+         // return this.$store.state.user
+        }
+      },
+      computed: {
+          // arrow functions can make the code very succinct!
+//           ...mapState({
+//             username: state => state.username,
+//             role: state => state.role,
+//             id : state => state.user_id,
+//             email: state => state.email
+//           })
+        
+         updated: function() {
+      return this.$store.getters.getUserData
     }
+          
+
+//           // passing the string value 'count' is same as `state => state.count`
+//           countAlias: 'count',
+
+//           // to access local state with `this`, a normal function must be used
+//           countPlusLocalState (state) {
+//             return state.count + this.localCount
+//           }
+        }
+    
+    })
     
     
     
