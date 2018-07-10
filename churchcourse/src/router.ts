@@ -5,6 +5,12 @@ import Login from '@/views/Login.vue';
 import Home from '@/views/Home.vue';
 import About from '@/views/About.vue';
 import DashbaordTeacherView from '@/views/DashboardTeacherView.vue';
+import CreateCourse from '@/views/CreateCourse.vue';
+import CourseManagement from '@/views/CourseManagement.vue';
+import StudentManagement from '@/views/StudentManagement.vue';
+import InboxManagement from '@/views/InboxManagement.vue';
+import Student_Data from '@/views/Student_Data.vue';
+import TeacherPage from '@/views/TeacherPage.vue';
 import Store from './store';
 
 Vue.use(Router);
@@ -18,7 +24,7 @@ export default new Router({
       component: Login,
     },
     {
-      path: '/dashboardTeacher',
+      path: '/teacher',
       name: 'dashboardTeacher',
       component: DashbaordTeacherView,
       beforeEnter: (to, from, next) => {
@@ -28,7 +34,45 @@ export default new Router({
          } else {
            next('/')
          }
-      }
+      },
+      children: [
+        
+        {
+          // UserProfile will be rendered inside User's <router-view>
+          // when /user/:id/profile is matched
+          path: '',
+          component: TeacherPage
+        },{
+          // UserProfile will be rendered inside User's <router-view>
+          // when /user/:id/profile is matched
+          path: 'create_course',
+          component: CreateCourse
+        },
+        {
+          // UserPosts will be rendered inside User's <router-view>
+          // when /user/:id/posts is matched
+          path: 'course_management',
+          component: CourseManagement
+        },
+        {
+          // UserPosts will be rendered inside User's <router-view>
+          // when /user/:id/posts is matched
+          path: 'student_management',
+          component: StudentManagement
+        },
+        {
+          // UserPosts will be rendered inside User's <router-view>
+          // when /user/:id/posts is matched
+          path: 'inbox',
+          component: InboxManagement
+        },
+        {
+          // UserPosts will be rendered inside User's <router-view>
+          // when /user/:id/posts is matched
+          path: 'student/:id',
+          component: Student_Data
+        }
+      ]
     },
     {
       path: '/home',
