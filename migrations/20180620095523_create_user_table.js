@@ -4,7 +4,7 @@ exports.up = function (knex) {
     t.increments('id').primary()
     t.string('username').notNullable()
     t.string('password').notNullable()
-    t.timestamps(true,true)
+    t.timestamps(true,knex.fn.now())
   })
 }
 

@@ -5,8 +5,8 @@ exports.up = function (knex) {
     t.integer('title').notNullable()
     t.integer('relatedTopicID')
     t.integer('description')
-    t.string('fileData')
-    t.timestamp('created_at').defaultTo(knex.fn.now())
+    t.string('fileData') 
+    t.timestamps(true,knex.fn.now())
   })
 }
 
