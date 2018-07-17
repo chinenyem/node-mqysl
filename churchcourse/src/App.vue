@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 <!--     <b-alert show>Default Alert</b-alert>
-    -->
+    --> 
     <notifications group="foo" />
     <router-view/>
   </div>
