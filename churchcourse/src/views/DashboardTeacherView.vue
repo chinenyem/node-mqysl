@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home main">
     <DashbaordTeacher />
     <router-view></router-view>
   </div>
@@ -163,7 +163,7 @@ let navigation = {
     }
 }
 
-navigation.init();
+//navigation.init();
 </script>
 
 <style scoped lang="scss">
