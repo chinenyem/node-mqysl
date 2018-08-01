@@ -19,8 +19,8 @@ interface PayloadValue {
     token?:string,
     role?:string,
     email?:string,
-}    
-    
+}
+
 
 const state = {
      user: "",
@@ -36,14 +36,12 @@ const getters = {
 
 const mutations = {
   AUTHENTICATE: (state:StateValue, payload:PayloadValue) => {
-    console.log(payload)
-    console.log(state)
     state.user = payload.username;
     state.user_id = payload.id;
     state.token = payload.token;
     state.role = payload.role;
     state.email = payload.email;
-    console.log(state)
+    
   },
   LOGOUT: () => {
     state.user = "";
@@ -74,7 +72,7 @@ const actions = {
 }
 
  var store = new Vuex.Store({
-        state:state, 
+        state:state,
         getters:getters,
         mutations: mutations,
         actions: actions,

@@ -29,6 +29,8 @@ export default new Router({
       component: DashbaordTeacherView,
       beforeEnter: (to, from, next) => {
         //changed this to permssion and role
+        console.log("test")
+        console.log(Store.state.token)
         if (Store.state.token) {
            next()
          } else {
@@ -36,16 +38,18 @@ export default new Router({
          }
       },
       children: [
-        
+
         {
           // UserProfile will be rendered inside User's <router-view>
           // when /user/:id/profile is matched
-          path: '',
+          path: '/teacher',
+          name:'TeacherPage',
           component: TeacherPage
         },{
           // UserProfile will be rendered inside User's <router-view>
           // when /user/:id/profile is matched
           path: 'create_course',
+          name: 'CreateCourse',
           component: CreateCourse
         },
         {
@@ -58,18 +62,21 @@ export default new Router({
           // UserPosts will be rendered inside User's <router-view>
           // when /user/:id/posts is matched
           path: 'student_management',
+          name: 'StudentManagement',
           component: StudentManagement
         },
         {
           // UserPosts will be rendered inside User's <router-view>
           // when /user/:id/posts is matched
           path: 'inbox',
+          name: 'InboxManagement',
           component: InboxManagement
         },
         {
           // UserPosts will be rendered inside User's <router-view>
           // when /user/:id/posts is matched
           path: 'student/:id',
+          name: 'Student_Data',
           component: Student_Data
         }
       ]

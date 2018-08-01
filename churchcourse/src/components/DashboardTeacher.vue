@@ -1,32 +1,55 @@
 <template>
- <div>
-   
- 
- <div class="nav__bar">
-    <a href="#" class="nav__trigger">
-        <div class="bars"></div>
-    </a>        
-</div>
- <nav class="nav">
-    <ul class="nav__list">
-        <li class="nav__item"><a href="#">Sriracha</a></li>
-        <li class="nav__item"><a href="#">Wolf Moon</a></li>
-        <li class="nav__item"><a href="#">Raw Denim</a></li>
-        <li class="nav__item"><a href="#">Mumblecore</a></li>
-        <li class="nav__item"><a href="#">Fingerstache</a></li>
-        <li class="nav__item"><a href="#">Chillwave</a></li>
-    </ul>
-</nav>
- </div>
+   <v-navigation-drawer
+         fixed
+         v-model="drawer"
+         app
+       >
+         <v-list dense>
+           <v-list-tile @click="">
+             <v-list-tile-action>
+               <v-icon>home</v-icon>
+             </v-list-tile-action>
+             <v-list-tile-content>
+               <v-list-tile-title>Home</v-list-tile-title>
+             </v-list-tile-content>
+           </v-list-tile>
+           <v-list-tile @click="">
+             <v-list-tile-action>
+               <v-icon>contact_mail</v-icon>
+             </v-list-tile-action>
+             <v-list-tile-content>
+               <v-list-tile-title>Contact</v-list-tile-title>
+             </v-list-tile-content>
+           </v-list-tile>
+         </v-list>
+       </v-navigation-drawer>
 </template>
+
+
+
+<script>
+
+
+</script>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class DashbaordTeacher extends Vue {
- // @Prop() private msg!: string;
+export default class DashboardTeacher extends Vue {
+  @Prop() private drawer: any;
+ // undecorated property will be packed in `data` option
+  
+  // undecorated method is just method
+  // hello() {
+  //   alert('hello ' + this.name)
+  // }
+  // data: () => ({
+  //   drawer: null
+  // })
 }
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -66,11 +89,7 @@ $nav-item-delay: 0.05s;
     box-sizing: border-box;
 }
 
-html {
-    font-family: $open-sans;
-    color: $black;
-    background-color: $white;
-}
+
 
 body {
     &.is-froze {
@@ -96,7 +115,7 @@ img {
 
 a {
     transition: color 0.3s ease-in-out;
-    
+
     &:hover {
         color: $primary;
     }
@@ -106,164 +125,11 @@ a {
 // ------------------------------------------------------
 
 
-.main {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    width: calc(100% - #{$nav-bar-width});
-    height: 100vh;
-    margin-left: $nav-bar-width;
-    background-color: $white;
-    transition: $cubic-transition;
-    transform: scale(1)
-               translate3d(0, 0, 0);
-    clip-path: inset(0 0 0 0);
-    will-change: width, height, opacity, transform, clip-path;
-    z-index: 1;
-    
-    &.is-active {
-        overflow: hidden;
-        height: 100vh;
-        width: 100vw;
-        width: calc(100vw - #{$nav-bar-width});
-        pointer-events: none;
-        opacity: 0.25;
-        transform: scale(0.9)
-                   translate3d(60%, 0, 0);
-        
-        @media (min-width: $mobile-width) {
-            transform: scale(0.9)
-                       translate3d(40%, 0, 0);            
-        }
-    }
-    
-    &.is-transition-out {
-        clip-path: inset(0 0 0 100%);
-    }
-}
-
-
-// --------------------------------------
-// Hero
-// --------------------------------------
-.hero__content,
-.content {
-    max-width: $max-width;
-    margin: 0 auto;
-}
-
-.hero {
-    background-color: $primary-ultralight;
-}
-
-.hero__content {
-    width: 100%;
-    padding: 1.5rem;
-    color: $primary-dark;
-    z-index: 1;
-    
-    @media (min-width: $mobile-width) {
-        padding: 6vmin;
-    }
-}
-
-.hero__heading {
-    margin: 0;
-    font-size: 2rem;
-    font-weight: bold;
-    
-    @media (min-width: $mobile-width) {
-        font-size: 3rem;        
-    }
-}
-
-.hero__subheading {
-    margin: 1rem 0 0;
-    text-transform: uppercase;
-    font-size: 1.25rem;
-    
-    @media (min-width: $mobile-width) {
-        font-size: 1.5rem;        
-    }
-
-    &,
-    a {
-        color: $primary-dark;
-    }
-}
-
-
-// --------------------------------------
-// Article
-// --------------------------------------
-.article {
-    padding: 1.5rem;
-    position: relative;
-    
-    @media (min-width: $mobile-width) {
-        padding: 6vmin;
-    }
-    
-    &:not(:last-of-type) {
-        &:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 1.5rem;
-            width: 50px;
-            height: 2px;
-            background-color: $primary;
-            
-            @media (min-width: $mobile-width) {
-                left: 6vmin;
-            }
-        }
-    }    
-}
-
-.article__title {
-    display: block;
-    position: relative;
-    font-family: $raleway;
-    font-size: 1.5rem;
-    color: $primary-ultradark;
-    
-    @media (min-width: $mobile-width) {
-        font-size: 3vmin;
-    }
-    
-    &:hover {
-        color: $primary;
-    }
-}
-
-.article__time {
-    display: block;
-    position: relative;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    margin-top: 1rem;
-    
-    @media (min-width: $mobile-width) {
-        font-size: 1.5vmin;
-    }
-}
-
-.article__content {
-    margin: 1rem 0 0;
-    font-size: 1rem;
-    line-height: 1.5;
-    
-    @media (min-width: $mobile-width) {
-        font-size: 2vmin;
-    }
-}
-
 
 // --------------------------------------
 // Navigation
 // --------------------------------------
-.nav__bar {
+.navbar.nav__bar {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -284,10 +150,10 @@ a {
     margin-top: -(($bar-thickness*5) / 2);
     transition: 0.2s ease-in-out;
     z-index: 99;
-    
+
     .bars {
         position: relative;
-        
+
         &,
         &:before,
         &:after {
@@ -297,7 +163,7 @@ a {
             transition: 0.2s ease-in-out;
             border-radius: $bar-thickness;
         }
-        
+
         &:before,
         &:after {
             content: '';
@@ -311,16 +177,16 @@ a {
         &:before {
             transform: translateY(-($bar-thickness*2));
         }
-        
+
         &:after {
             transform: translateY(($bar-thickness*2));
         }
     }
-    
+
     &.is-active {
         transform: rotate(-45deg);
-        
-        .bars {            
+
+        .bars {
             &:before,
             &:after {
                 transform: translateX(0)
@@ -351,7 +217,7 @@ a {
     list-style: none;
     font-family: $raleway;
     transform: translateY(-50%);
-    
+
     .nav__item {
         padding: 0.5rem 1rem;
 
@@ -360,24 +226,24 @@ a {
             padding: 0.5rem 1rem;
         }
     }
-    
+
     a {
         display: inline-block;
         color: $primary;
         font-size: 1rem;
         line-height: 1.5;
-        
+
         &:hover {
             color: $primary-light;
         }
-        
+
         &.is-active {
             color: $primary-ultralight;
         }
-        
+
         @media (min-width: $mobile-width) {
-            font-size: 1.5rem;            
+            font-size: 1.5rem;
         }
-    } 
+    }
 }
 </style>

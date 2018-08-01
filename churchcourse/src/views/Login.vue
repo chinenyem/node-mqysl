@@ -1,12 +1,12 @@
 <!--  eslint-disable-next-line -->
 
 <template>
-  
+
   <div class="login login-page" id="login">
     <div class="welcomeTitle">
       <div class="title">
         <h2>
-          <span class="subtitle">Welcome To </span>ChurchCourse 
+          <span class="subtitle">Welcome To </span>ChurchCourse
         </h2>
       </div>
     </div>
@@ -29,7 +29,7 @@
         </form>
         <form class="login-form" v-if="show">
           <div :updated="updated">
-            
+
           </div>
           <input type="text" placeholder="username" v-model="username"/>
           <input type="password" placeholder="password" v-model="logingpassword"/>
@@ -37,7 +37,7 @@
           <p class="message" @click="show = !show">Not registered? <a href="#" class="divp" >Create an account</a></p>
         </form>
     </div>
-      
+
     </div>
       <div class="studentsignin">
         <div class="form">
@@ -57,7 +57,7 @@
         </form>
         <form class="login-form" v-if="showstudent">
           <div :updated="updated">
-            
+
           </div>
           <input type="text" placeholder="username" v-model="studentusername"/>
           <input type="password" placeholder="password" v-model="studentlogingpassword"/>
@@ -74,8 +74,8 @@
 
 <style scoped lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600');
-  
-  
+
+
   .welcomeTitle{
     height: 222px;
     background-image: url("../assets/abstract2.png");
@@ -85,7 +85,7 @@
     .title{
       font-family: 'Montserrat', sans-serif;
       top: 74px;
-      position: relative; 
+      position: relative;
       color:white;
       h2{
         font-weight:600;
@@ -95,7 +95,7 @@
       }
     }
   }
-  
+
   .containerForm{
     display: flex;
     flex-flow: row wrap;
@@ -112,8 +112,8 @@
       background-color: rgba(255, 166, 3, 0.5);
     }
   }
-  
-  
+
+
   @media (max-width: 400px) {
   .containerForm {
     display: block;
@@ -121,16 +121,16 @@
       width: 100%;
     }
     .teachersignin{
-      height: 63vh; 
+      height: 63vh;
     }
      .studentsignin{
        height: 69vh;
     }
   }
 }
-  
-  
-  
+
+
+
 .login-page {
 /*   width: 360px;
   padding: 8% 0 0;
@@ -193,9 +193,9 @@ body {
   background: linear-gradient(to left, #76b852, #8DC26F);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+  -moz-osx-font-smoothing: grayscale;
 }
-  
+
   .container {
   position: relative;
   z-index: 1;
@@ -253,13 +253,13 @@ body {
               showstudent:true,
               emptyfields: false,
               password: '',
-              email: '', 
+              email: '',
               username: '',
               logingpassword: '',
               id: '',
               role: '',
               studentpassword: '',
-              studentemail: '', 
+              studentemail: '',
               studentusername: '',
               studentlogingpassword: '',
              };
@@ -267,35 +267,35 @@ body {
       methods:{
           createAcct(username, password, email){
           console.log(username + " " + password + " " + email);
-         
+
           let dataNew = {
               username: username,
               password: password,
-              email:email
+              email: email
             },
             value = true;
           if (dataNew.username == "" || dataNew.password == "" || dataNew.email == "")
           {
-              
+
               value = true;
               setTimeout(function(){
               value = false;
               }, 3000)
-             this.emptyfields = value 
-            
+             this.emptyfields = value
+
           }
           else{
             let url = '/createUser';
             console.log(dataNew)
-             axios.post(url, dataNew).then((response) => {
-                console.log(response)
-            });
+            // axios.post(url, dataNew).then((response) => {
+          //      console.log(response)
+          //  });
          }
-        
+
         },
         createAcctstudent(studentusername, studentpassword, studentemail){
           console.log(studentusername + " " + studentpassword + " " + studentemail);
-         
+
           let dataNew = {
               username: studentusername,
               password: studentpassword,
@@ -304,13 +304,13 @@ body {
             value = true;
           if (dataNew.username == "" || dataNew.password == "" || dataNew.email == "")
           {
-              
+
               value = true;
               setTimeout(function(){
               value = false;
               }, 3000)
-             this.emptyfields = value 
-            
+             this.emptyfields = value
+
           }
           else{
             let url = '/createUser';
@@ -319,7 +319,7 @@ body {
                 console.log(response)
             });
          }
-        
+
         },
          loginIn(username, logingpassword) {
           console.log(username + " " + logingpassword );
@@ -338,16 +338,16 @@ body {
                 console.log(this.$store.state)
                 this.$store.dispatch('auth', dataNew);
                 //this.$router.push({ name: 'dashboard', params: { userId: 123 }})
-                this.$router.push({ name: 'teacher'})
+                this.$router.push({ path: 'teacher'})
               //teacher dashboard shared by teacher and teacher assistant
               //admin dashboard
               //student dashboard
 
 
-               
+
             });
           }
-            
+
         },
         loginInstudent(studentusername, studentlogingpassword) {
           console.log(studentusername + " " + studentlogingpassword );
@@ -373,12 +373,12 @@ body {
               //student dashboard
 
 
-               
+
             });
           }
-            
+
         }
-        
+
       },
       watch: {
         userState() {
@@ -394,11 +394,11 @@ body {
 //             id : state => state.user_id,
 //             email: state => state.email
 //           })
-        
+
          updated: function() {
       return this.$store.getters.getUserData
     }
-          
+
 
 //           // passing the string value 'count' is same as `state => state.count`
 //           countAlias: 'count',
@@ -408,9 +408,9 @@ body {
 //             return state.count + this.localCount
 //           }
         }
-    
+
     })
-    
-    
-    
+
+
+
 </script>
